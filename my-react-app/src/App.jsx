@@ -8,6 +8,8 @@ export default function App() {
       <UserInfo />
       <InputExample />
       <LoginForm />
+      <LoginStatus />
+      <Notification />
     </div>
   );
 }
@@ -369,5 +371,101 @@ function LoginForm() {
         </p>
       )}
     </form>
+  );
+}
+
+function LoginStatus() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  return (
+    <div style={{ padding: "20px", marginTop: "40px", textAlign: "center" }}>
+      {isLoggedIn ? (
+        <div
+          style={{
+            backgroundColor: "#d4edda",
+            padding: "20px",
+            borderRadius: "4px",
+            border: "1px solid #c3e6cb",
+          }}
+        >
+          <h2>🎉 ยินดีต้อนรับ!</h2>
+          <p>คุณได้เข้าสู่ระบบแล้ว</p>
+          <button
+            onClick={() => setIsLoggedIn(false)}
+            style={{
+              padding: "10px 20px",
+              backgroundColor: "#dc3545",
+              color: "white",
+              border: "none",
+              borderRadius: "4px",
+              cursor: "pointer",
+            }}
+          >
+            ออกจากระบบ
+          </button>
+        </div>
+      ) : (
+        <div
+          style={{
+            backgroundColor: "#f8d7da",
+            padding: "20px",
+            borderRadius: "4px",
+            border: "1px solid #f5c6cb",
+          }}
+        >
+          <h2>🔒 กรุณาเข้าสู่ระบบ</h2>
+          <button
+            onClick={() => setIsLoggedIn(true)}
+            style={{
+              padding: "10px 20px",
+              backgroundColor: "#007bff",
+              color: "white",
+              border: "none",
+              borderRadius: "4px",
+              cursor: "pointer",
+            }}
+          >
+            เข้าสู่ระบบ
+          </button>
+        </div>
+      )}
+    </div>
+  );
+}
+
+function Notification() {
+  const [hasMessage, setHasMessage] = useState(false);
+
+  return (
+    <div style={{ padding: "20px", marginTop: "40px", maxWidth: "400px" }}>
+      {hasMessage && (
+        <div
+          style={{
+            backgroundColor: "#d4edda",
+            border: "1px solid #c3e6cb",
+            padding: "15px",
+            borderRadius: "4px",
+            marginBottom: "15px",
+            color: "#155724",
+          }}
+        >
+          📩 คุณมีข้อความใหม่!
+        </div>
+      )}
+
+      <button
+        onClick={() => setHasMessage(!hasMessage)}
+        style={{
+          padding: "10px 20px",
+          backgroundColor: hasMessage ? "#dc3545" : "#28a745",
+          color: "white",
+          border: "none",
+          borderRadius: "4px",
+          cursor: "pointer",
+        }}
+      >
+        {hasMessage ? "ลบการแจ้งเตือน" : "เพิ่มการแจ้งเตือน"}
+      </button>
+    </div>
   );
 }
