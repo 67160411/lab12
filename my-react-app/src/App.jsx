@@ -5,6 +5,7 @@ export default function App() {
     <div>
       <Counter />
       <ToggleMenu />
+      <UserInfo />
     </div>
   );
 }
@@ -136,6 +137,103 @@ function ToggleMenu() {
           </p>
         </div>
       )}
+    </div>
+  );
+}
+
+function UserInfo() {
+  const [user, setUser] = useState({
+    firstName: "",
+    lastName: "",
+    age: "",
+  });
+
+  function updateFirstName(value) {
+    setUser({ ...user, firstName: value });
+  }
+
+  function updateLastName(value) {
+    setUser({ ...user, lastName: value });
+  }
+
+  function updateAge(value) {
+    setUser({ ...user, age: value });
+  }
+
+  return (
+    <div style={{ padding: "20px", marginTop: "40px", maxWidth: "400px" }}>
+      <h2>👤 ข้อมูลส่วนตัว</h2>
+
+      <div style={{ marginBottom: "15px" }}>
+        <label>ชื่อ:</label>
+        <input
+          type="text"
+          value={user.firstName}
+          onChange={(e) => updateFirstName(e.target.value)}
+          placeholder="กรอกชื่อ"
+          style={{
+            display: "block",
+            padding: "8px",
+            marginTop: "5px",
+            width: "100%",
+            fontSize: "14px",
+          }}
+        />
+      </div>
+
+      <div style={{ marginBottom: "15px" }}>
+        <label>นามสกุล:</label>
+        <input
+          type="text"
+          value={user.lastName}
+          onChange={(e) => updateLastName(e.target.value)}
+          placeholder="กรอกนามสกุล"
+          style={{
+            display: "block",
+            padding: "8px",
+            marginTop: "5px",
+            width: "100%",
+            fontSize: "14px",
+          }}
+        />
+      </div>
+
+      <div style={{ marginBottom: "15px" }}>
+        <label>อายุ:</label>
+        <input
+          type="number"
+          value={user.age}
+          onChange={(e) => updateAge(e.target.value)}
+          placeholder="กรอกอายุ"
+          style={{
+            display: "block",
+            padding: "8px",
+            marginTop: "5px",
+            width: "100%",
+            fontSize: "14px",
+          }}
+        />
+      </div>
+
+      <div
+        style={{
+          backgroundColor: "#f9f9f9",
+          padding: "15px",
+          borderRadius: "4px",
+          border: "1px solid #ddd",
+        }}
+      >
+        <h3>ข้อมูลที่บันทึก:</h3>
+        <p>
+          <strong>ชื่อ:</strong> {user.firstName || "ยังไม่กรอก"}
+        </p>
+        <p>
+          <strong>นามสกุล:</strong> {user.lastName || "ยังไม่กรอก"}
+        </p>
+        <p>
+          <strong>อายุ:</strong> {user.age || "ยังไม่กรอก"}
+        </p>
+      </div>
     </div>
   );
 }
