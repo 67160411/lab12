@@ -2,7 +2,7 @@ import { useState } from "react";
 
 export default function App() {
   return (
-    <div style={{ backgroundColor: "#f5f5f5", minHeight: "100vh" }}>
+    <div style={{ backgroundColor: "#97c5e2", minHeight: "100vh" }}>
       <Counter />
       <ToggleMenu />
       <UserInfo />
@@ -222,7 +222,7 @@ function UserInfo() {
 
       <div
         style={{
-          backgroundColor: "#f9f9f9",
+          backgroundColor: "#b22fb4",
           padding: "15px",
           borderRadius: "4px",
           border: "1px solid #ddd",
@@ -306,7 +306,7 @@ function LoginForm() {
         padding: "30px",
         border: "1px solid #ddd",
         borderRadius: "8px",
-        backgroundColor: "#f9f9f9",
+        backgroundColor: "#c3ad42",
       }}
     >
       <h2 style={{ textAlign: "center" }}>🔐 เข้าสู่ระบบ</h2>
@@ -513,7 +513,7 @@ function TodoApp() {
         padding: "30px",
         border: "1px solid #ddd",
         borderRadius: "8px",
-        backgroundColor: "#f9f9f9",
+        backgroundColor: "#cf89cd",
       }}
     >
       <h1 style={{ textAlign: "center" }}>📝 รายการที่ต้องทำ</h1>
@@ -557,7 +557,7 @@ function TodoApp() {
           <li
             key={todo.id}
             style={{
-              backgroundColor: "#fff",
+              backgroundColor: "#6c0082",
               padding: "15px",
               marginBottom: "10px",
               borderRadius: "4px",
