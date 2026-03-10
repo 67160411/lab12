@@ -6,6 +6,8 @@ export default function App() {
       <Counter />
       <ToggleMenu />
       <UserInfo />
+      <InputExample />
+      <LoginForm />
     </div>
   );
 }
@@ -235,5 +237,137 @@ function UserInfo() {
         </p>
       </div>
     </div>
+  );
+}
+
+function InputExample() {
+  const [text, setText] = useState("");
+
+  return (
+    <div style={{ padding: "20px", marginTop: "40px", maxWidth: "400px" }}>
+      <h2>📝 กรอกข้อความ</h2>
+
+      <input
+        type="text"
+        value={text}
+        onChange={(e) => setText(e.target.value)}
+        placeholder="พิมพ์อะไรสักอย่าง..."
+        style={{
+          display: "block",
+          padding: "10px",
+          fontSize: "16px",
+          width: "100%",
+          borderRadius: "4px",
+          border: "1px solid #ddd",
+        }}
+      />
+
+      <p style={{ marginTop: "10px" }}>
+        คุณพิมพ์: <strong>{text}</strong>
+      </p>
+
+      <p style={{ marginTop: "20px", color: "#666" }}>
+        จำนวนตัวอักษร: {text.length}
+      </p>
+    </div>
+  );
+}
+
+function LoginForm() {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [submitted, setSubmitted] = useState(false);
+
+  function handleSubmit(event) {
+    event.preventDefault();
+
+    if (username.trim() && password.trim()) {
+      setSubmitted(true);
+      console.log("ข้อมูลที่ส่ง:", { username, password });
+
+      // รีเซ็ตหลังจาก 2 วินาที
+      setTimeout(() => {
+        setUsername("");
+        setPassword("");
+        setSubmitted(false);
+      }, 2000);
+    }
+  }
+
+  return (
+    <form
+      onSubmit={handleSubmit}
+      style={{
+        maxWidth: "400px",
+        margin: "20px auto",
+        padding: "30px",
+        border: "1px solid #ddd",
+        borderRadius: "8px",
+        backgroundColor: "#f9f9f9",
+      }}
+    >
+      <h2 style={{ textAlign: "center" }}>🔐 เข้าสู่ระบบ</h2>
+
+      <div style={{ marginBottom: "20px" }}>
+        <label style={{ display: "block", marginBottom: "5px" }}>
+          ชื่อผู้ใช้:
+        </label>
+        <input
+          type="text"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          placeholder="สมชาย"
+          style={{
+            width: "100%",
+            padding: "10px",
+            fontSize: "14px",
+            borderRadius: "4px",
+            border: "1px solid #ddd",
+          }}
+        />
+      </div>
+
+      <div style={{ marginBottom: "20px" }}>
+        <label style={{ display: "block", marginBottom: "5px" }}>
+          รหัสผ่าน:
+        </label>
+        <input
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          placeholder="••••••"
+          style={{
+            width: "100%",
+            padding: "10px",
+            fontSize: "14px",
+            borderRadius: "4px",
+            border: "1px solid #ddd",
+          }}
+        />
+      </div>
+
+      <button
+        type="submit"
+        style={{
+          width: "100%",
+          padding: "12px",
+          backgroundColor: "#28a745",
+          color: "white",
+          border: "none",
+          borderRadius: "4px",
+          fontSize: "16px",
+          cursor: "pointer",
+          fontWeight: "bold",
+        }}
+      >
+        เข้าสู่ระบบ
+      </button>
+
+      {submitted && (
+        <p style={{ marginTop: "20px", color: "#28a745", textAlign: "center" }}>
+          เข้าสู่ระบบสำเร็จเป็น {username}!
+        </p>
+      )}
+    </form>
   );
 }
