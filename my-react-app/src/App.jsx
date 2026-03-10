@@ -2,7 +2,7 @@ import { useState } from "react";
 
 export default function App() {
   return (
-    <div>
+    <div style={{ backgroundColor: "#f5f5f5", minHeight: "100vh" }}>
       <Counter />
       <ToggleMenu />
       <UserInfo />
@@ -10,6 +10,7 @@ export default function App() {
       <LoginForm />
       <LoginStatus />
       <Notification />
+      <TodoApp />
     </div>
   );
 }
@@ -466,6 +467,160 @@ function Notification() {
       >
         {hasMessage ? "ลบการแจ้งเตือน" : "เพิ่มการแจ้งเตือน"}
       </button>
+    </div>
+  );
+}
+
+function TodoApp() {
+  const [todos, setTodos] = useState([]);
+  const [input, setInput] = useState("");
+
+  function addTodo() {
+    if (input.trim()) {
+      const newTodo = {
+        id: Date.now(),
+        text: input,
+        completed: false,
+      };
+      setTodos([...todos, newTodo]);
+      setInput("");
+    }
+  }
+
+  function deleteTodo(id) {
+    setTodos(todos.filter((todo) => todo.id !== id));
+  }
+
+  function toggleTodo(id) {
+    setTodos(
+      todos.map((todo) =>
+        todo.id === id ? { ...todo, completed: !todo.completed } : todo,
+      ),
+    );
+  }
+
+  function handleKeyPress(e) {
+    if (e.key === "Enter") {
+      addTodo();
+    }
+  }
+
+  return (
+    <div
+      style={{
+        maxWidth: "600px",
+        margin: "40px auto",
+        padding: "30px",
+        border: "1px solid #ddd",
+        borderRadius: "8px",
+        backgroundColor: "#f9f9f9",
+      }}
+    >
+      <h1 style={{ textAlign: "center" }}>📝 รายการที่ต้องทำ</h1>
+
+      {/* Input Section */}
+      <div style={{ display: "flex", gap: "10px", marginBottom: "20px" }}>
+        <input
+          type="text"
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          onKeyPress={handleKeyPress}
+          placeholder="เพิ่มสิ่งที่ต้องทำ..."
+          style={{
+            flex: 1,
+            padding: "12px",
+            fontSize: "16px",
+            borderRadius: "4px",
+            border: "1px solid #ddd",
+          }}
+        />
+        <button
+          onClick={addTodo}
+          style={{
+            padding: "12px 24px",
+            backgroundColor: "#28a745",
+            color: "white",
+            border: "none",
+            borderRadius: "4px",
+            cursor: "pointer",
+            fontSize: "16px",
+            fontWeight: "bold",
+          }}
+        >
+          เพิ่ม
+        </button>
+      </div>
+
+      {/* Todo List */}
+      <ul style={{ listStyle: "none", padding: 0 }}>
+        {todos.map((todo) => (
+          <li
+            key={todo.id}
+            style={{
+              backgroundColor: "#fff",
+              padding: "15px",
+              marginBottom: "10px",
+              borderRadius: "4px",
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              border: "1px solid #ddd",
+              textDecoration: todo.completed ? "line-through" : "none",
+              opacity: todo.completed ? 0.6 : 1,
+            }}
+          >
+            <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+              <input
+                type="checkbox"
+                checked={todo.completed}
+                onChange={() => toggleTodo(todo.id)}
+                style={{ cursor: "pointer", width: "18px", height: "18px" }}
+              />
+              <span>{todo.text}</span>
+            </div>
+            <button
+              onClick={() => deleteTodo(todo.id)}
+              style={{
+                padding: "8px 12px",
+                backgroundColor: "#dc3545",
+                color: "white",
+                border: "none",
+                borderRadius: "4px",
+                cursor: "pointer",
+                fontSize: "14px",
+              }}
+            >
+              ลบ
+            </button>
+          </li>
+        ))}
+      </ul>
+
+      {/* Empty State */}
+      {todos.length === 0 && (
+        <p style={{ textAlign: "center", color: "#999", marginTop: "20px" }}>
+          ยังไม่มีรายการ เพิ่มเลย! 🎯
+        </p>
+      )}
+
+      {/* Stats */}
+      {todos.length > 0 && (
+        <div
+          style={{
+            marginTop: "20px",
+            padding: "15px",
+            backgroundColor: "#e7f3ff",
+            borderRadius: "4px",
+            textAlign: "center",
+            color: "#0066cc",
+          }}
+        >
+          <strong>
+            {todos.filter((t) => t.completed).length} / {todos.length}{" "}
+            สำเร็จแล้ว
+          </strong>
+        </div>
+      )}
     </div>
   );
 }
